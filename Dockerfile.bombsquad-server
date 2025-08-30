@@ -12,8 +12,11 @@ ARG BOMBSQUAD_VERSION="${BOMBSQUAD_VERSION}"
 
 # Install required packages and clean up
 RUN apt update && \
-    apt install -y curl coreutils && \
+    apt install -y curl coreutils dbus && \
     rm -rf /var/cache/apt/* /tmp/*
+
+#Generating machine ID
+RUN dbus-uuidgen --ensure=/etc/machine-id
 
 WORKDIR /app
 
