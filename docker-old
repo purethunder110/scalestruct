@@ -1,0 +1,30 @@
+FROM debian:trixie-slim
+
+# adding headscale repos
+RUN apt update 
+
+RUN apt install -y ca-certificates curl gnupg
+
+RUN install -m 0755 -d /etc/apt/keyrings && \
+  curl -fsSL https://allddd.github.io/headscale-apt/headscale-apt.gpg | sudo gpg --dearmor -o /etc/apt/keyrings/headscale-apt.gpg && \
+  sudo chmod 444 /etc/apt/keyrings/headscale-apt.gpg && \
+  echo 'deb [arch=amd64 signed-by=/etc/apt/keyrings/headscale-apt.gpg] https://allddd.github.io/headscale-apt/ stable main' | sudo tee /etc/apt/sources.list.d/headscale-apt.list
+
+RUN apt update
+
+#installng dependency
+RUN apt install haproxy \ 
+  headscale \ 
+  git
+
+# pull configs from github repo
+RUN git clone https://github.com/purethunder110/scalestruct.git
+
+# Copy configs
+COPY scalestruct/headscale_config.yaml /etc/headscale/config.yaml
+COPY scalestruct/render-haproxy.cfg /etc/haproxy/haproxy.cfg
+
+# Entrypoint: run both
+CMD \
+  headscale serve --config /etc/headscale/config.yaml & \
+  haproxy -f /etc/haproxy/haproxy.cfg -db

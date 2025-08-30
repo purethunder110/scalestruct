@@ -1,0 +1,13 @@
+FROM npm:24.7-slim
+
+RUN npm install pnpm
+
+RUN git clone https://github.com/p-stream/simple-proxy
+
+RUN cd simple-proxy
+
+RUN pnpm i
+
+RUN pnpm build
+
+CMD pnpm start
