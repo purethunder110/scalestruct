@@ -4,8 +4,8 @@ services:
   simple-proxy:
     build:
       context: /tmp/empty
-      dockerfile: ./Dockerfile.pk-proxy-image   # change if you named it differently
+      dockerfile: ${CWD:-PWD}/Dockerfile.pk-proxy-image   # change if you named it differently
     container_name: pk-proxy-image
     ports:
-      - "3000:3222"
+      - "3000:${PK-PROXY-PORT:-3222}"
     restart: unless-stopped
