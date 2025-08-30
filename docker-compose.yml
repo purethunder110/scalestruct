@@ -36,3 +36,10 @@ services:
       BROADCAST_RCON_TO_OPS: "false"
     volumes:
       - "${MINECRAFT_DATA_DIRECTORY}:/data"
+  bombsquad-image:
+    build:
+        context: /tmp/empty
+        dockerfile: ${DOCKER_IMAGE_DIRECTORY:-PWD}/Dockerfile.bombsquad-server
+    ports:
+      - 43210:43210/udp
+    restart: unless-stopped
