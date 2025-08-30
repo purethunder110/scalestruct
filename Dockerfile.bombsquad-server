@@ -11,9 +11,9 @@ ENV TARGETARCH=${TARGETARCH}
 ARG BOMBSQUAD_VERSION="${BOMBSQUAD_VERSION}"
 
 # Install required packages and clean up
-RUN apk update && \
-    apk add curl coreutils && \
-    rm -rf /var/cache/apk/* /tmp/*
+RUN apt update && \
+    apt add curl coreutils && \
+    rm -rf /var/cache/apt/* /tmp/*
 
 WORKDIR /app
 
