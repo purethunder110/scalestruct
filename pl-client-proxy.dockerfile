@@ -3,7 +3,7 @@ FROM node:20-slim AS build
 
 # Install git (needed only for build)
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends git \
+    && apt-get install -y --no-install-recommends git ca-certificates \
     && rm -rf /var/lib/apt/lists/*
 
 RUN git clone https://github.com/p-stream/simple-proxy.git
