@@ -3,7 +3,7 @@
 # Updated for 2025 best practices
 # BombSquad Server Multi-Arch
 #
-FROM python:3.13-slime-trixie
+FROM python:3.13-slim-trixie
 
 ARG TARGETARCH
 ENV TARGETARCH=${TARGETARCH}
