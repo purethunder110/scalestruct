@@ -1,13 +1,31 @@
-FROM node:24.7-slim
+# ---- Build Stage ----
+FROM node:20-slim AS build
 
-RUN npm install -g pnpm@latest-10
+# Install git (needed only for build)
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends git \
+    && rm -rf /var/lib/apt/lists/*
 
 RUN git clone https://github.com/p-stream/simple-proxy
 
-RUN cd simple-proxy
+WORKDIR /simple-proxy
+
+# If your dependencies need git (e.g., "git+https://..."), git must be here
+RUN npm install -g pnpm@latest-10
 
 RUN pnpm i
 
+# Build your app (if applicable, e.g. for Next.js, React, etc.)
 RUN pnpm build
 
-CMD pnpm start
+# ---- Runtime Stage ----
+FROM node:20-slim AS runtime
+
+RUN npm install -g pnpm@latest-10
+
+WORKDIR /app
+
+COPY --from=build /simple-proxy ./
+
+# Start command
+CMD ["pnpm", "start"]
