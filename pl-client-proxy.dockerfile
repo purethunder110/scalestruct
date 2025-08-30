@@ -27,5 +27,7 @@ WORKDIR /app
 
 COPY --from=build /simple-proxy ./
 
+EXPOSE 3000
+
 # Start command
 CMD ["pnpm", "start"]
