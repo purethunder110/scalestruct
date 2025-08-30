@@ -3,7 +3,7 @@ version: "3.9"
 services:
   simple-proxy:
     build:
-      context: /temp/empty
+      context: /tmp/empty
       dockerfile: Dockerfile   # change if you named it differently
     container_name: simple-proxy
     ports:
