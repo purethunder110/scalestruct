@@ -4,8 +4,8 @@ services:
   simple-proxy:
     build:
       context: /tmp/empty
-      dockerfile: pl-client-proxy.dockerfile   # change if you named it differently
-    container_name: simple-proxy
+      dockerfile: ./pl-client-proxy.dockerfile   # change if you named it differently
+    container_name: pk-proxy-image
     ports:
       - "3000:3222"
     restart: unless-stopped
