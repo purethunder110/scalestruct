@@ -3,7 +3,7 @@
 # Updated for 2025 best practices
 # BombSquad Server Multi-Arch
 #
-FROM python:3.13-alpine
+FROM python:3.13-slime-trixie
 
 ARG TARGETARCH
 ENV TARGETARCH=${TARGETARCH}
@@ -12,8 +12,8 @@ ARG BOMBSQUAD_VERSION="${BOMBSQUAD_VERSION}"
 
 # Install required packages and clean up
 RUN apk update && \
-    apk add --no-cache curl coreutils && \
-    rm -rf /var/cache/apk/*
+    apk add curl coreutils && \
+    rm -rf /var/cache/apk/* /tmp/*
 
 WORKDIR /app
 
