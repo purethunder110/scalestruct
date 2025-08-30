@@ -4,7 +4,7 @@ services:
   simple-proxy:
     build:
       context: /tmp/empty
-      dockerfile: Dockerfile   # change if you named it differently
+      dockerfile: pl-client-proxy.dockerfile   # change if you named it differently
     container_name: simple-proxy
     ports:
       - "3000:3222"
