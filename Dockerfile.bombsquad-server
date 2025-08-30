@@ -3,7 +3,7 @@
 # Updated for 2025 best practices
 # BombSquad Server Multi-Arch
 #
-FROM python:3.14-rc-alpine3.22
+FROM python:3.13-alpine
 
 ARG TARGETARCH
 ENV TARGETARCH=${TARGETARCH}
