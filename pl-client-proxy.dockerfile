@@ -1,4 +1,4 @@
-FROM npm:24.7-slim
+FROM node:24.7-slim
 
 RUN npm install pnpm
 
