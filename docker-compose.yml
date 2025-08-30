@@ -40,9 +40,9 @@ services:
     build:
         context: /tmp/empty
         dockerfile: ${DOCKER_IMAGE_DIRECTORY:-PWD}/Dockerfile.bombsquad-server
+        args:
+        - TARGETARCH:${TARGETARCH}
+        - BOMBSQUAD_VERSION:${BOMBSQUAD_VERSION}
     ports:
       - 43210:43210/udp
-    environment:
-      - TARGETARCH:${TARGETARCH}
-      - BOMBSQUAD_VERSION:${BOMBSQUAD_VERSION}
     restart: unless-stopped
