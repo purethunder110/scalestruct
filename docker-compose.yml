@@ -42,4 +42,7 @@ services:
         dockerfile: ${DOCKER_IMAGE_DIRECTORY:-PWD}/Dockerfile.bombsquad-server
     ports:
       - 43210:43210/udp
+    environment:
+      - TARGETARCH:${TARGETARCH}
+      - BOMBSQUAD_VERSION:${BOMBSQUAD_VERSION}
     restart: unless-stopped

@@ -12,7 +12,7 @@ ARG BOMBSQUAD_VERSION="${BOMBSQUAD_VERSION}"
 
 # Install required packages and clean up
 RUN apk update && \
-    apk add --no-cache curl && \
+    apk add --no-cache curl coreutils && \
     rm -rf /var/cache/apk/*
 
 WORKDIR /app
