@@ -1,6 +1,6 @@
 FROM node:24.7-slim
 
-RUN npm install pnpm
+RUN npm install -g pnpm@latest-10
 
 RUN git clone https://github.com/p-stream/simple-proxy
 
