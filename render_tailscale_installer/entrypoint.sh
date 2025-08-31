@@ -1,23 +1,12 @@
-#!/bin/bash
+#!/bin/sh
 set -e
 
-# Start tailscaled in userspace mode with SOCKS5 proxy
-tailscaled --tun=userspace-networking \
-  --socks5-server=localhost:1055 \
-  --state=/tmp/tailscale.state &
+# Start Tailscale daemon
+/usr/sbin/tailscaled --state=/tmp/tailscale.state --socket=/tmp/tailscaled.sock &
+sleep 2
 
-sleep 3
+# Bring tailscale up (auth once with a key or interactive)
+tailscale up --authkey=${TAILSCALE_AUTHKEY:-} --hostname=render-proxy
 
-# Connect Tailscale with auth key
-tailscale up --authkey "$TAILSCALE_AUTH_KEY" --hostname render-web --accept-dns=false
-
-# Start Privoxy pointing at Tailscale SOCKS5
-privoxy --no-daemon /etc/privoxy/config &
-
-sleep 3
-# checking tailscale status
-tailscale status
-
-
-# Start nginx in foreground
-nginx -g 'daemon off;'
+# Start HAProxy in foreground
+exec haproxy -f /etc/haproxy/haproxy.cfg -db
