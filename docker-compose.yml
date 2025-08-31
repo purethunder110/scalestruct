@@ -16,13 +16,14 @@ services:
     stdin_open: true
     ports:
       - "25565:25565"
+      - "24454:24454/udp"
     environment:
       EULA: "TRUE"
       TYPE: "FABRIC"
       VERSION: "LATEST"
       MEMORY: "512M"
       MAX_PLAYERS: "10"
-      MOTD: "ALASKA SERVER MINECRAFT SERVER \\n welcome to the new world"
+      MOTD: "ALASKA SERVER MINECRAFT SERVER \n welcome to the new world"
       ICON: "https://img.icons8.com/?size=64&id=peN1BybXB8su&format=png&color=000000"
       OVERRIDE_ICON: "true"
       ONLINE_MODE: "false"
@@ -33,6 +34,8 @@ services:
       PAUSE_WHEN_EMPTY_SECONDS: "120"
       PLAYER_IDLE_TIMEOUT: "10"
       BROADCAST_CONSOLE_TO_OPS: "false"
+      MODRINTH_PROJECTS: |
+        https://modrinth.com/plugin/simple-voice-chat/version/fabric-1.21.8-2.5.36
       BROADCAST_RCON_TO_OPS: "false"
     volumes:
       - "${MINECRAFT_DATA_DIRECTORY}:/data"
