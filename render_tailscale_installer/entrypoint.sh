@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 # Start tailscaled in userspace mode with SOCKS5 proxy
 tailscaled --tun=userspace-networking \
