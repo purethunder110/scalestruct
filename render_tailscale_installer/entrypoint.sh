@@ -1,13 +1,17 @@
 #!/bin/bash
 
-# Start tailscaled in userspace networking mode (no TUN/iptables required)
-tailscaled --tun=userspace-networking --state=/tmp/tailscale.state &
+# Start tailscaled in userspace mode with SOCKS5 proxy
+tailscaled --tun=userspace-networking \
+  --socks5-server=localhost:1055 \
+  --state=/tmp/tailscale.state &
 
-# Wait a few seconds for tailscaled to initialize
-sleep 2
+sleep 3
 
-# Connect to Tailscale using auth key
+# Connect Tailscale with auth key
 tailscale up --authkey "$TAILSCALE_AUTH_KEY" --hostname render-web --accept-dns=false
+
+# Start Privoxy pointing at Tailscale SOCKS5
+privoxy --no-daemon /etc/privoxy/config &
 
 # Start nginx in foreground
 nginx -g 'daemon off;'
