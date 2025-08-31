@@ -35,7 +35,7 @@ services:
       PLAYER_IDLE_TIMEOUT: "10"
       BROADCAST_CONSOLE_TO_OPS: "false"
       MODRINTH_PROJECTS: |
-        https://modrinth.com/plugin/simple-voice-chat/version/fabric-1.21.8-2.5.36
+        simple-voice-chat
       BROADCAST_RCON_TO_OPS: "false"
     volumes:
       - "${MINECRAFT_DATA_DIRECTORY}:/data"
