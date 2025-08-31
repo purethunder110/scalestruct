@@ -14,5 +14,10 @@ tailscale up --authkey "$TAILSCALE_AUTH_KEY" --hostname render-web --accept-dns=
 # Start Privoxy pointing at Tailscale SOCKS5
 privoxy --no-daemon /etc/privoxy/config &
 
+sleep 3
+# checking tailscale status
+tailscale status
+
+
 # Start nginx in foreground
 nginx -g 'daemon off;'
