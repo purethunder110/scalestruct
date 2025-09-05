@@ -3,12 +3,10 @@
 set -e
 
 # Start Tailscale daemon
-tailscaled --tun=userspace-networking \
-  --state=mem: \ 
-  -- ts-dest-ip= 100.88.156.14\
+tailscaled --tun=userspace-networking --state=mem: --ts-dest-ip= 100.88.156.14 &
 #   --socks5-server=localhost:1055 \
 #   --outbound-http-proxy-listen=localhost:1055 \
-  --state=/tmp/tailscale.state &
+#   --state=/tmp/tailscale.state &
 
 sleep 2
 
