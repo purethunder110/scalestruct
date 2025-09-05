@@ -1,20 +1,20 @@
 #!/bin/sh
 
-# # set -e
+set -e
 
-# # # Start Tailscale daemon
-# # tailscaled --tun=userspace-networking \
-# #   --socks5-server=localhost:1055 \
-# #   --state=/tmp/tailscale.state &
+# Start Tailscale daemon
+tailscaled --tun=userspace-networking \
+  --socks5-server=localhost:1055 \
+  --state=/tmp/tailscale.state &
 
-# # sleep 2
+sleep 2
 
-# # # Bring tailscale up (auth once with a key or interactive)
-# # tailscale up --authkey "$TAILSCALE_AUTH_KEY" --hostname render-web --accept-dns=false
+# Bring tailscale up (auth once with a key or interactive)
+tailscale up --authkey "$TAILSCALE_AUTH_KEY" --hostname render-web --accept-dns=false
 
-# # sleep 3
-# # # checking tailscale status
-# # tailscale status
+sleep 3
+# checking tailscale status
+tailscale status
 
 # # # Start HAProxy in foreground
 # # exec haproxy -f /etc/haproxy/haproxy.cfg -db
@@ -53,15 +53,15 @@
 # # ---- Start everything under supervisord ----
 # exec /usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.conf
 
-set -eu
+# set -eu
 
-# Start Tailscale daemon
-tailscaled --state=/var/lib/tailscale/tailscaled.state --socket=/var/run/tailscale/tailscaled.sock &
-sleep 2
-tailscale up --authkey=${TAILSCALE_AUTH_KEY} --hostname=render-web --accept-routes
+# # Start Tailscale daemon
+# tailscaled --state=/var/lib/tailscale/tailscaled.state --socket=/var/run/tailscale/tailscaled.sock &
+# sleep 2
+# tailscale up --authkey=${TAILSCALE_AUTH_KEY} --hostname=render-web --accept-routes
 
-# Start Privoxy
-privoxy --no-daemon /etc/privoxy/config &
+# # Start Privoxy
+# privoxy --no-daemon /etc/privoxy/config &
 
-# Start HAProxy in foreground
-exec haproxy -f /etc/haproxy/haproxy.cfg.tpl
+# # Start HAProxy in foreground
+# exec haproxy -f /etc/haproxy/haproxy.cfg.tpl
