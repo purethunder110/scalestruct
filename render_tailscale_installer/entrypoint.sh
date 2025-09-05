@@ -1,4 +1,5 @@
 # #!/bin/sh
+
 # set -e
 
 # # Start Tailscale daemon
@@ -17,8 +18,6 @@
 
 # # Start HAProxy in foreground
 # exec haproxy -f /etc/haproxy/haproxy.cfg -db
-
-#!/usr/bin/env bash
 set -euo pipefail
 
 # ---- Defaults from env ----
