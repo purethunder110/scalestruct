@@ -19,6 +19,8 @@ COPY Caddyfile /etc/caddy/Caddyfile
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
+RUN echo "100.88.156.14 alaska-server.ibis-altair.ts.net" >> /etc/hosts
+
 EXPOSE 8080
 
 ENTRYPOINT ["/entrypoint.sh"]

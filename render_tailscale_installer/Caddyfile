@@ -1,5 +1,5 @@
-:{$PORT}
-
-route /testbed/* {
-    reverse_proxy alaska-server.ibis-altair.ts.net
+:80 {
+    handle_path /testbed/* {
+        reverse_proxy http://100.88.156.14:80
+    }
 }
