@@ -1,23 +1,26 @@
 FROM debian:bullseye-slim
 
-# Install dependencies
-RUN apt-get update && apt-get install -y \
-    curl \
-    gnupg \
-    ca-certificates \
-    iproute2 \
-    iputils-ping \
-    haproxy \
-    && rm -rf /var/lib/apt/lists/*
+# System deps
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    ca-certificates curl gnupg iproute2 iputils-ping \
+    haproxy privoxy supervisor \
+ && rm -rf /var/lib/apt/lists/*
 
-# Install Tailscale
+# Tailscale
 RUN curl -fsSL https://tailscale.com/install.sh | sh
 
-# Copy HAProxy config and entrypoint
-COPY haproxy.cfg /etc/haproxy/haproxy.cfg
+# Runtime dirs
+RUN mkdir -p /etc/haproxy /etc/privoxy /var/log/privoxy /var/run/ts /etc/supervisor/conf.d
+
+# Copy templates + entrypoint
+COPY haproxy.cfg.tpl /etc/haproxy/haproxy.cfg.tpl
+COPY privoxy.config.tpl /etc/privoxy/config.tpl
+COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
-EXPOSE 80
+# HAProxy will listen on $PORT (Render sets it), default 8080
+EXPOSE 8080
 
+# Use the entrypoint to render configs from env and start everything
 CMD ["/entrypoint.sh"]
