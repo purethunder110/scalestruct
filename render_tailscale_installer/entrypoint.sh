@@ -4,8 +4,8 @@ set -e
 
 # Start Tailscale daemon
 tailscaled \
-  --tun=userspace-networking \
-  --state=/tmp/tailscale.state \
+  --tun=userspace-networking 
+#   --state=/tmp/tailscale.state \
 
 sleep 2
 
