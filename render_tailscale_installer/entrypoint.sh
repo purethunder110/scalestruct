@@ -3,10 +3,10 @@
 set -e
 
 # Start Tailscale daemon
-tailscaled --tun=userspace-networking --state=mem: --ts-dest-ip= 100.88.156.14 &
-#   --socks5-server=localhost:1055 \
-#   --outbound-http-proxy-listen=localhost:1055 \
-#   --state=/tmp/tailscale.state &
+tailscaled \
+  --tun=userspace-networking \
+  --state=mem: \
+  --outbound-http-proxy-listen=127.0.0.1:1055 &
 
 sleep 2
 
@@ -17,7 +17,8 @@ sleep 3
 # checking tailscale status
 tailscale status
 
-
+# Start Nginx in foreground
+exec nginx -g 'daemon off;'
 
 # # # Start HAProxy in foreground
 # # exec haproxy -f /etc/haproxy/haproxy.cfg -db

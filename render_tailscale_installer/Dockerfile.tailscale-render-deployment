@@ -1,16 +1,22 @@
 FROM debian:bullseye-slim
 
-# System deps
-RUN apt-get update && apt-get install -y \
-    curl gnupg ca-certificates nginx iproute2 iputils-ping \
+# Install nginx + tailscale deps
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    nginx \
+    curl \
+    ca-certificates \
+    iproute2 \
     && rm -rf /var/lib/apt/lists/*
+
 # Tailscale
 RUN curl -fsSL https://tailscale.com/install.sh | sh
 
-# Copy templates + entrypoint
-
+# Copy configs
+COPY nginx.conf /etc/nginx/nginx.conf
 COPY entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
+RUN chmod +x entrypoint.sh
 
-# Use the entrypoint to render configs from env and start everything
-CMD ["/entrypoint.sh"]
+# Render needs non-root sometimes, but we’ll keep nginx default
+EXPOSE 80
+
+ENTRYPOINT ["/entrypoint.sh"]
