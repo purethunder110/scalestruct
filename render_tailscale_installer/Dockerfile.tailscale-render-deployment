@@ -1,11 +1,10 @@
 FROM debian:bullseye-slim
 
 # System deps
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    ca-certificates curl gnupg iproute2 iputils-ping \
-    haproxy privoxy supervisor \
- && rm -rf /var/lib/apt/lists/*
-
+RUN apt-get update && apt-get install -y \
+    curl gnupg ca-certificates nginx iproute2 iputils-ping \
+    privoxy haproxy sudo bash \
+    && rm -rf /var/lib/apt/lists/*
 # Tailscale
 RUN curl -fsSL https://tailscale.com/install.sh | sh
 
