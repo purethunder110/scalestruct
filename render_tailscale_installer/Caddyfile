@@ -1,0 +1,5 @@
+:{$PORT}
+
+route /testbed/* {
+    reverse_proxy 100.88.156.14:80
+}

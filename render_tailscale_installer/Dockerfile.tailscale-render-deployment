@@ -1,24 +1,21 @@
 FROM debian:bullseye-slim
 
-# Install nginx + tailscale deps
+# Install dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    curl \
-    ca-certificates \
-    nginx \
-    iproute2 \
-    iputils-ping \
-    bash \
+    curl ca-certificates iproute2 iputils-ping bash \
     && rm -rf /var/lib/apt/lists/*
 
-# Tailscale
+# Install Caddy
+RUN curl -fsSL https://getcaddy.com | bash -s personal
+
+# Install Tailscale
 RUN curl -fsSL https://tailscale.com/install.sh | sh
 
 # Copy configs
-COPY nginx.conf /etc/nginx/nginx.conf
+COPY Caddyfile /etc/caddy/Caddyfile
 COPY entrypoint.sh /entrypoint.sh
-RUN chmod +x entrypoint.sh
-# 
-# Render needs non-root sometimes, but we’ll keep nginx default
-# EXPOSE 80
+RUN chmod +x /entrypoint.sh
+
+EXPOSE 8080
 
 ENTRYPOINT ["/entrypoint.sh"]
