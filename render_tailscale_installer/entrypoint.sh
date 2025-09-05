@@ -18,14 +18,14 @@
 
 # # Start HAProxy in foreground
 # exec haproxy -f /etc/haproxy/haproxy.cfg -db
-set -euo pipefail
+set -eu
 
 # ---- Defaults from env ----
 : "${PORT:=8080}"                       # Render usually injects PORT; fallback to 8080 locally
 : "${TESTBED_PREFIX:=/testbed/}"        # Path prefix to expose
 : "${TESTBED_DEST:=100.88.146.20:80}"   # Tailscale private target host:port
 : "${TS_HOSTNAME:=edge-proxy}"          # How this node shows up in Tailscale
-: "${TAILSCALE_AUTHKEY:?Set TAILSCALE_AUTHKEY env var for headless login}"
+: "${TAILSCALE_AUTH_KEY:?Set TAILSCALE_AUTH_KEY env var for headless login}"
 
 echo "[entrypoint] PORT=$PORT"
 echo "[entrypoint] TESTBED_PREFIX=$TESTBED_PREFIX"
