@@ -4,7 +4,10 @@ set -e
 
 # Start Tailscale daemon
 tailscaled --tun=userspace-networking \
-  --socks5-server=localhost:1055 \
+  --state=mem: \ 
+  -- ts-dest-ip= 100.88.156.14\
+#   --socks5-server=localhost:1055 \
+#   --outbound-http-proxy-listen=localhost:1055 \
   --state=/tmp/tailscale.state &
 
 sleep 2
@@ -15,6 +18,8 @@ tailscale up --authkey "$TAILSCALE_AUTH_KEY" --hostname render-web --accept-dns=
 sleep 3
 # checking tailscale status
 tailscale status
+
+
 
 # # # Start HAProxy in foreground
 # # exec haproxy -f /etc/haproxy/haproxy.cfg -db
