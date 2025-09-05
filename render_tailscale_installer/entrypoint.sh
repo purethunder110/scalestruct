@@ -5,8 +5,7 @@ set -e
 # Start Tailscale daemon
 tailscaled \
   --tun=userspace-networking \
-  --state=mem: \
-  --outbound-http-proxy-listen=127.0.0.1:1055 &
+  --state=/tmp/tailscale.state \
 
 sleep 2
 

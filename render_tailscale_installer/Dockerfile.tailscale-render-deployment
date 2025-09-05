@@ -2,10 +2,12 @@ FROM debian:bullseye-slim
 
 # Install nginx + tailscale deps
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    nginx \
     curl \
     ca-certificates \
+    nginx \
     iproute2 \
+    iputils-ping \
+    bash \
     && rm -rf /var/lib/apt/lists/*
 
 # Tailscale
