@@ -2,7 +2,7 @@
 set -e
 
 # Start tailscaled in background
-tailscaled --tun=userspace-networking --state=/tmp/tailscale.state &
+tailscaled --tun=userspace-networking --state=/tmp/tailscale.state --outbound-http-proxy-listen=127.0.0.1:1055 &
 sleep 2
 
 # Bring up tailscale
@@ -16,7 +16,13 @@ done
 # Debug: show status
 tailscale status
 
-curl -v http://100.88.156.14:80/
 
-# Start Caddy (foreground)
-# exec caddy run --config /etc/caddy/Caddyfile --adapter caddyfile
+
+# Optionally verify that the peer is reachable (replace IP)
+until tailscale ping -c 1 100.88.156.14 >/dev/null 2>&1; do
+  echo "waiting for tailnet peer..."
+  sleep 2
+done
+
+# Start HAProxy (it will bind to ${PORT})
+exec haproxy -f /etc/haproxy/haproxy.cfg -db
