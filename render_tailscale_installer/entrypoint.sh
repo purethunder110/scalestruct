@@ -26,7 +26,7 @@ tailscale netcheck
 
 ss -ltnp | grep 1055
 
-curl -v -x http://127.0.0.1:1055 http://100.88.156.14/
+# curl -v -x http://127.0.0.1:1055 http://100.88.156.14/
 
 # Start HAProxy (it will bind to ${PORT})
 exec haproxy -f /etc/haproxy/haproxy.cfg -db
