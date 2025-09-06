@@ -16,5 +16,7 @@ done
 # Debug: show status
 tailscale status
 
+curl -v http://100.88.156.14:80/
+
 # Start Caddy (foreground)
-exec caddy run --config /etc/caddy/Caddyfile --adapter caddyfile
+# exec caddy run --config /etc/caddy/Caddyfile --adapter caddyfile
