@@ -4,7 +4,7 @@ services:
   simple-proxy:
     build:
       context: /tmp/empty
-      dockerfile: ${DOCKER_IMAGE_DIRECTORY:-PWD}/Dockerfile.pk-proxy-image   # change if you named it differently
+      dockerfile: ${DOCKER_IMAGE_DIRECTORY:-PWD}/pk-proxy/Dockerfile.pk-proxy-image   # change if you named it differently
     container_name: pk-proxy-image
     ports:
       - "3000:${PK_PROXY_PORT:-3222}"
