@@ -1,0 +1,12 @@
+version: "3.9"
+
+services:
+  bombsquad-image:
+    build:
+        dockerfile: ./dockerimage/Dockerfile.bombsquad-server
+        # args:
+        # - TARGETARCH:${TARGETARCH}
+        # - BOMBSQUAD_VERSION:${BOMBSQUAD_VERSION}
+    ports:
+      - 43210:43210/udp
+    restart: unless-stopped

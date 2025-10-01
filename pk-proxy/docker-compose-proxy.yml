@@ -1,0 +1,10 @@
+version: "3.9"
+
+services:
+  simple-proxy:
+    build:
+      dockerfile: ./dockerimage/Dockerfile.pk-proxy-image   # change if you named it differently
+    container_name: pk-proxy-image
+    ports:
+      - "3000:3222"
+    restart: unless-stopped

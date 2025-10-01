@@ -1,0 +1,13 @@
+version: "3.9"
+
+services:
+  seanime:
+    image: umagistr/seanime
+    container_name: seanime
+    volumes:
+      - ./volumes/anime:/anime
+      - ./volumes/downloads:/downloads
+      - ./volumes/seanime-config:/root/.config/Seanime
+    ports:
+      - 3211:43211
+    restart: always

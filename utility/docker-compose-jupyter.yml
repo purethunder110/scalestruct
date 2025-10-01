@@ -1,0 +1,12 @@
+version: "3.9"
+
+services:
+
+  jupyter-notebook:
+    build:
+      dockerfile: ./dockerimage/Dockerfile.jupyter
+    ports:
+      - '8888:1223'
+    volumes:
+      - ./volumes/jupyter:/app
+

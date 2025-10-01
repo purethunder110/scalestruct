@@ -1,0 +1,15 @@
+FROM python:latest
+
+WORKDIR /app
+
+RUN apt-get update && apt-get install -y build-essential gcc gfortran
+
+RUN pip install --upgrade pip setuptools wheel
+
+RUN pip install jupyterlab jupyter-collaboration
+
+EXPOSE 8888
+
+VOLUME ["/app"]
+
+CMD ["jupyter", "lab", "--allow-root", "--no-browser","--collaborative"]
