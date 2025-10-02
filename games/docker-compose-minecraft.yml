@@ -12,7 +12,7 @@ services:
     environment:
       EULA: "TRUE"
       TYPE: "FABRIC"
-      VERSION: "LATEST"
+      VERSION: "1.21.8"
       MEMORY: "512M"
       MAX_PLAYERS: "10"
       MOTD: "ALASKA SERVER MINECRAFT SERVER \n welcome to the new world"
