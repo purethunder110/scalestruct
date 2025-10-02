@@ -6,7 +6,7 @@ services:
     build:
       dockerfile: ./dockerimage/Dockerfile.jupyter-notebook
     ports:
-      - '8888:1223'
+      - '1223:1223'
     volumes:
       - ./volumes/jupyter:/app
-
+    restart: unless-stopped

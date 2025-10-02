@@ -31,3 +31,4 @@ services:
       BROADCAST_RCON_TO_OPS: "false"
     volumes:
       - ./volumes/minecraft:/data"
+    restart: unless-stopped
