@@ -10,12 +10,4 @@ RUN pip install jupyterlab jupyter-collaboration
 
 VOLUME ["/app"]
 
-CMD ["jupyter","lab",
-    "--allow-root",
-    "--no-browser",
-    "--collaborative",
-    "--ip=0.0.0.0",
-    "--port=1223",
-    "--NotebookApp.token=''",
-    "--NotebookApp.password=''"
-    ]
+CMD ["jupyter","lab","--allow-root","--no-browser","--collaborative","--ip=0.0.0.0","--port=1223","--NotebookApp.token=''","--NotebookApp.password=''"]
