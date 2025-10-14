@@ -2,9 +2,9 @@ version: "3.9"
 
 services:
   stirling-pdf:
-    image: docker.stirlingpdf.com/stirlingtools/stirling-pdf:latest
+    image: docker.stirlingpdf.com/stirlingtools/stirling-pdf:latest-ultra-lite
     ports:
-      - '5500:8080'
+      - '0.0.0.0:5500:8800'
     volumes:
       - ./volumes/StirlingPDF/trainingData:/usr/share/ # Required for extra OCR languages
       - ./volumes/StirlingPDF/extraConfigs:/configs
@@ -12,6 +12,7 @@ services:
       - ./volumes/StirlingPDF/logs:/logs/
       - ./volumes/StirlingPDF/pipeline:/pipeline/
     environment:
-      - DISABLE_ADDITIONAL_FEATURES=false
+      - DISABLE_ADDITIONAL_FEATURES=true
       - LANGS=en_GB
+      - ENABLE_OPENOFFICE=false
     restart: unless-stopped

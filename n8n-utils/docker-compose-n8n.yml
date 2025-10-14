@@ -1,0 +1,46 @@
+version: "3.8"
+
+services:
+  n8n:
+    image: docker.n8n.io/n8nio/n8n
+    restart: always
+    ports:
+      - "0.0.0.0:4758:5678"  # exposes n8n on http://localhost:4758
+    environment:
+      - N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS=true
+      - N8N_HOST=localhost
+      - N8N_PORT=5678
+      - N8N_PROTOCOL=http
+      - N8N_SECURE_COOKIE=false
+      - N8N_RUNNERS_ENABLED=true
+      - NODE_ENV=production
+      - WEBHOOK_URL=http://localhost:5678/
+      - GENERIC_TIMEZONE=${GENERIC_TIMEZONE:-Asia/Kolkata}
+      - TZ=${GENERIC_TIMEZONE:-Asia/Kolkata}
+    dns:
+      - 8.8.8.8
+    volumes:
+      - n8n_data:/home/node/.n8n
+      - ./volumes/n8n:/files
+    networks:
+      - n8n_net
+    depends_on:
+      - fastapi
+
+  fastapi:
+    build:
+      context: ./fastapi-proxy
+      dockerfile: ./dockerimage/Dockerfile.fastapi_helper
+    container_name: fastapi
+    restart: always
+    expose:
+      - "8000"  # internal only
+    networks:
+      - n8n_net
+
+volumes:
+  n8n_data:
+
+networks:
+  n8n_net:
+    driver: bridge
