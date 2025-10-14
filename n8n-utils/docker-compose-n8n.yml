@@ -3,7 +3,7 @@ version: "3.8"
 services:
   n8n:
     image: docker.n8n.io/n8nio/n8n
-    restart: always
+    restart: unless-stopped
     ports:
       - "0.0.0.0:4758:5678"  # exposes n8n on http://localhost:4758
     environment:
@@ -25,14 +25,14 @@ services:
     networks:
       - n8n_net
     depends_on:
-      - fastapi
+      - fastapi-proxy
 
-  fastapi:
+  fastapi-proxy:
     build:
       context: ./fastapi-proxy
       dockerfile: ./dockerimage/Dockerfile.fastapi_helper
-    container_name: fastapi
-    restart: always
+    container_name: fastapi-proxy
+    restart: unless-stopped
     expose:
       - "8000"  # internal only
     networks:
