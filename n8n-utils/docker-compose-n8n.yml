@@ -29,8 +29,8 @@ services:
 
   fastapi-proxy:
     build:
-      context: ./
-      dockerfile: ./dockerimage/Dockerfile.fastapi_helper
+      context: ./fastapi-proxy
+      dockerfile: ../dockerimage/Dockerfile.fastapi_helper
     container_name: fastapi-proxy
     restart: unless-stopped
     expose:
