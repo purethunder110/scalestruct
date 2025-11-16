@@ -14,7 +14,7 @@ services:
       - N8N_SECURE_COOKIE=false
       - N8N_RUNNERS_ENABLED=true
       - NODE_ENV=production
-      - WEBHOOK_URL=http://localhost:5678/
+      - WEBHOOK_URL=http://alaska-server.ibis-altair.ts.net:4758/
       - GENERIC_TIMEZONE=${GENERIC_TIMEZONE:-Asia/Kolkata}
       - TZ=${GENERIC_TIMEZONE:-Asia/Kolkata}
     dns:
